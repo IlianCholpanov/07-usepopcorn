@@ -51,24 +51,29 @@ const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
+  const [movies, setMovies] = useState(tempMovieData);
+
+  //Structural component
   return (
     <>
-      <NavBar />
-      <Main />
+      <NavBar movies={movies} />
+      <Main movies={movies} />
     </>
   );
 }
 
-function NavBar() {
+function NavBar({ movies }) {
+  //Structural component
   return (
     <nav className="nav-bar">
       <Logo />
       <Search />
-      <NumResults />
+      <NumResults movies={movies} />
     </nav>
   );
 }
 function Logo() {
+  //Presentational component
   return (
     <div className="logo">
       <span role="img">🍿</span>
@@ -78,6 +83,7 @@ function Logo() {
 }
 
 function Search() {
+  //Statefull component
   const [query, setQuery] = useState("");
 
   return (
@@ -91,24 +97,27 @@ function Search() {
   );
 }
 
-function NumResults() {
+function NumResults({ movies }) {
+  //Presentational component
   return (
     <p className="num-results">
-      Found <strong>X</strong> results
+      Found <strong>{movies.length}</strong> results
     </p>
   );
 }
 
-function Main() {
+function Main({ movies }) {
+  //Structural component
   return (
     <main className="main">
-      <ListBox />
+      <ListBox movies={movies} />
       <WatchedBox />
     </main>
   );
 }
 
-function ListBox() {
+function ListBox({ movies }) {
+  //Statefull component
   const [isOpen1, setIsOpen1] = useState(true);
 
   return (
@@ -119,13 +128,13 @@ function ListBox() {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && <MovieList />}
+      {isOpen1 && <MovieList movies={movies} />}
     </div>
   );
 }
 
-function MovieList() {
-  const [movies, setMovies] = useState(tempMovieData);
+function MovieList({ movies }) {
+  //Statefull component
 
   return (
     <ul className="list">
@@ -137,6 +146,7 @@ function MovieList() {
 }
 
 function Movie({ movie }) {
+  //Presentational component
   return (
     <li>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
@@ -152,6 +162,7 @@ function Movie({ movie }) {
 }
 
 function WatchedBox() {
+  //Statefull component
   const [watched, setWatched] = useState(tempWatchedData);
   const [isOpen2, setIsOpen2] = useState(true);
 
@@ -174,6 +185,7 @@ function WatchedBox() {
 }
 
 function WatchedSummary({ watched }) {
+  //Presentational component
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
@@ -204,6 +216,7 @@ function WatchedSummary({ watched }) {
 }
 
 function WatchedMoviesList({ watched }) {
+  //Presentational component
   return (
     <ul className="list">
       {watched.map((movie) => (
@@ -214,6 +227,7 @@ function WatchedMoviesList({ watched }) {
 }
 
 function WatchedMovie({ movie }) {
+  //Presentational component
   return (
     <li>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
