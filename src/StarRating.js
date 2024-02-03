@@ -113,3 +113,5 @@ function Star({ onClick, full, onHoverIn, onHoverOut, color, size }) {
     </span>
   );
 }
+
+//Fully reusable React component
