@@ -55,11 +55,17 @@ const KEY = "2f94d4fb";
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
+  const query = "reacher";
 
   useEffect(function () {
-    fetch(`http://www.omdbapi.com/?apikey=${KEY}&S=jaws`)
-      .then((res) => res.json())
-      .then((data) => setMovies(data.Search));
+    async function fetchMovies() {
+      const res = await fetch(
+        `http://www.omdbapi.com/?apikey=${KEY}&S=${query}`
+      );
+      const data = await res.json();
+      setMovies(data.Search);
+    }
+    fetchMovies();
   }, []);
 
   return (
