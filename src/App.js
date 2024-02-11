@@ -54,7 +54,7 @@ const average = (arr) =>
 const KEY = "2f94d4fb";
 
 export default function App() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("Star wars");
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -322,6 +322,14 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     [selectedId]
   );
 
+  useEffect(
+    function () {
+      if (!title) return;
+      document.title = `Movie | ${title}`;
+    },
+    [title]
+  );
+
   return (
     <div className="details">
       {isLoading ? (
@@ -399,7 +407,7 @@ function WatchedSummary({ watched }) {
         </p>
         <p>
           <span>🌟</span>
-          <span>{Number(avgUserRating)}</span>
+          <span>{Number(avgUserRating).toFixed(1)}</span>
         </p>
         <p>
           <span>⏳</span>
