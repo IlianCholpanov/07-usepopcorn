@@ -256,7 +256,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     Genre: genre,
   } = movie;
 
-  if (imdbRating > 9) [isTop, setIsTop] = useState(true);
+  if (imdbRating > 8) [isTop, setIsTop] = useState(true);
 
   function handleAdd() {
     const newWatchedMovie = {
